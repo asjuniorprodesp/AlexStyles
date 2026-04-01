@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alex Styles | Graphic Designer</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="hero">
+    <nav class="nav container">
+      <a class="logo" href="#">Alex Styles</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+    <div class="hero-content fade-in">
+      <p class="eyebrow">Visual storytelling & brand craftsmanship</p>
+      <h1>Hi, I’m Alex<br /><span>Graphic Designer & Creative Partner</span></h1>
+      <p>Designing memorable identities, packaging, and digital experiences that connect with audiences.</p>
+      <a class="btn btn-primary" href="#portfolio">Explore My Work</a>
+    </div>
+  </header>
+
+  <main>
+    <section id="about" class="section container fade-in">
+      <h2>About Me</h2>
+      <div class="about-grid">
+        <p>I’m Alex Styles, a graphic designer with 8+ years of experience crafting bold, clean visual identities for startups, small businesses, and agencies. I blend strategy, typography, and color to create compelling narratives across print and digital media.</p>
+        <ul>
+          <li><strong>Brand Identity</strong> — logos, systems, guidelines</li>
+          <li><strong>UI Design</strong> — web interfaces, marketing pages</li>
+          <li><strong>Print Design</strong> — brochures, packaging, posters</li>
+          <li><strong>Illustration</strong> — icons, custom assets</li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="portfolio" class="section container fade-in">
+      <h2>Portfolio</h2>
+      <p class="subtitle">Selected projects where design met business goals.</p>
+      <div class="portfolio-grid">
+        <article class="project-card">
+          <a href="#" class="project-thumb" aria-label="Project 1">
+            <img src="imagens/designportfolio.jpg" alt="Project 1" />
+          </a>
+          <h3>Brand Refresh for Cielo Studio</h3>
+          <p>New brand direction, tone, and visual identity for a creative studio.</p>
+        </article>
+        <article class="project-card">
+          <a href="#" class="project-thumb" aria-label="Project 2">
+            <img src="imagens/lumi.jpg" alt="Project 2" />
+          </a>
+          <h3>Web Design for Lumi Coffee</h3>
+          <p>Responsive e-commerce design with custom product storytelling.</p>
+        </article>
+        <article class="project-card">
+          <a href="#" class="project-thumb" aria-label="Project 3">
+            <img src="imagens/nova.jpg" alt="Project 3" />
+          </a>
+          <h3>Packaging for Nova Collection</h3>
+          <p>Retail packaging system with illustrative accents and flexible comps.</p>
+        </article>
+        <article class="project-card">
+          <a href="#" class="project-thumb" aria-label="Project 4">
+            <img src="imagens/160822_SL_Blog_Evergreen.jpg" alt="Project 4" />
+          </a>
+          <h3>Social Campaign for Evergreen</h3>
+          <p>Concept, execution, and animation direction for a campaign launch.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="contact" class="section container fade-in">
+      <h2>Contact</h2>
+      <p class="subtitle">Let’s build something beautiful together.</p>
+      <form class="contact-form" action="#" method="post">
+        <div class="form-row">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required />
+        </div>
+        <div class="form-row">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@example.com" required />
+        </div>
+        <div class="form-row">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" placeholder="Tell me about your project" required></textarea>
+        </div>
+        <button class="btn btn-secondary" type="submit">Send Message</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <p>© <span id="year"></span> Alex Styles. Crafted with creativity and care.</p>
+    </div>
+  </footer>
+
+  <script>
+    const year = new Date().getFullYear();
+    document.getElementById('year').textContent = year;
+  </script>
+</body>
+</html>
