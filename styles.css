@@ -73,9 +73,32 @@ img {
 }
 
 .nav-links a {
+  position: relative;
   color: var(--c-muted);
   font-weight: 500;
   transition: color 220ms ease, transform 220ms ease;
+}
+
+.nav-links a::after {
+  content: attr(title);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  opacity: 0;
+  pointer-events: none;
+  padding: 0.25rem 0.6rem;
+  font-size: 0.75rem;
+  border-radius: 8px;
+  background: rgba(27, 31, 59, 0.92);
+  color: white;
+  white-space: nowrap;
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.nav-links a:hover::after,
+.nav-links a:focus-visible::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(18px);
 }
 
 .nav-links a:hover,
@@ -211,8 +234,90 @@ img {
 }
 
 .project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 16px 40px rgba(11, 27, 68, 0.2);
+  transform: translateY(-8px) scale(1.01);
+  box-shadow: 0 18px 45px rgba(11, 27, 68, 0.25);
+}
+
+.project-detail-btn {
+  margin: 0 1.1rem 1rem;
+  background: transparent;
+  border: 1px solid var(--c-secondary);
+  border-radius: 999px;
+  color: var(--c-secondary);
+  font-size: 0.84rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.45rem 0.9rem;
+  cursor: pointer;
+  transition: all 220ms ease;
+}
+
+.project-detail-btn:hover,
+.project-detail-btn:focus-visible {
+  background: var(--c-secondary);
+  color: #fff;
+  border-color: var(--c-secondary);
+  transform: translateY(-1px);
+}
+
+.project-modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 99;
+}
+
+.project-modal.open {
+  display: flex;
+}
+
+.project-modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(11, 19, 42, 0.6);
+  animation: fadeInMove 0.2s ease;
+}
+
+.project-modal-content {
+  position: relative;
+  background: #fff;
+  border-radius: 18px;
+  width: min(540px, 90vw);
+  padding: 1.6rem;
+  box-shadow: 0 25px 60px rgba(12, 21, 43, 0.3);
+  z-index: 2;
+  transform: translateY(20px);
+  opacity: 0;
+  animation: modalPop 0.28s ease forwards;
+}
+
+@keyframes modalPop {
+  from { transform: translateY(30px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.65rem;
+  right: 0.8rem;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  width: 2.1rem;
+  height: 2.1rem;
+  font-size: 1rem;
+  background: #eaeef8;
+  cursor: pointer;
+  color: #1b1f3b;
+}
+
+.modal-close:hover,
+.modal-close:focus-visible {
+  background: var(--c-secondary);
+  color: #fff;
 }
 
 .project-thumb {

@@ -14,9 +14,9 @@
     <nav class="nav container">
       <a class="logo" href="#">Alex Styles</a>
       <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#portfolio">Portfolio</a></li>
-        <li><a href="#contact">Contact</a></li>
+        <li><a href="#about" title="Learn more about Alex">About</a></li>
+        <li><a href="#portfolio" title="See recent projects">Portfolio</a></li>
+        <li><a href="#contact" title="Reach out to start a project">Contact</a></li>
       </ul>
     </nav>
     <div class="hero-content fade-in">
@@ -45,36 +45,49 @@
       <h2>Portfolio</h2>
       <p class="subtitle">Selected projects where design met business goals.</p>
       <div class="portfolio-grid">
-        <article class="project-card">
+        <article class="project-card" data-title="Brand Refresh for Cielo Studio" data-desc="Created a full identity system and digital brand toolkit for a modern studio.">
           <a href="#" class="project-thumb" aria-label="Project 1">
             <img src="imagens/designportfolio.jpg" alt="Project 1" />
           </a>
           <h3>Brand Refresh for Cielo Studio</h3>
           <p>New brand direction, tone, and visual identity for a creative studio.</p>
+          <button class="project-detail-btn" type="button">View Details</button>
         </article>
-        <article class="project-card">
+        <article class="project-card" data-title="Web Design for Lumi Coffee" data-desc="Designed a conversion-first responsive storefront with refined visual storytelling.">
           <a href="#" class="project-thumb" aria-label="Project 2">
             <img src="imagens/lumi.jpg" alt="Project 2" />
           </a>
           <h3>Web Design for Lumi Coffee</h3>
           <p>Responsive e-commerce design with custom product storytelling.</p>
+          <button class="project-detail-btn" type="button">View Details</button>
         </article>
-        <article class="project-card">
+        <article class="project-card" data-title="Packaging for Nova Collection" data-desc="Developed shelf-ready packaging direction with strong shelf impact and brand cohesion.">
           <a href="#" class="project-thumb" aria-label="Project 3">
             <img src="imagens/nova.jpg" alt="Project 3" />
           </a>
           <h3>Packaging for Nova Collection</h3>
           <p>Retail packaging system with illustrative accents and flexible comps.</p>
+          <button class="project-detail-btn" type="button">View Details</button>
         </article>
-        <article class="project-card">
+        <article class="project-card" data-title="Social Campaign for Evergreen" data-desc="Led concept to execution for a launch campaign with social-first motion visuals.">
           <a href="#" class="project-thumb" aria-label="Project 4">
             <img src="imagens/160822_SL_Blog_Evergreen.jpg" alt="Project 4" />
           </a>
           <h3>Social Campaign for Evergreen</h3>
           <p>Concept, execution, and animation direction for a campaign launch.</p>
+          <button class="project-detail-btn" type="button">View Details</button>
         </article>
       </div>
     </section>
+
+    <div id="project-modal" class="project-modal" aria-hidden="true" role="dialog" aria-labelledby="project-modal-title">
+      <div class="project-modal-backdrop" data-close="true"></div>
+      <div class="project-modal-content" role="document">
+        <button class="modal-close" id="modal-close" aria-label="Close project details">✕</button>
+        <h3 id="project-modal-title">Project Title</h3>
+        <p id="project-modal-description">Project details appear here.</p>
+      </div>
+    </div>
 
     <section id="contact" class="section container fade-in">
       <h2>Contact</h2>
@@ -106,6 +119,43 @@
   <script>
     const year = new Date().getFullYear();
     document.getElementById('year').textContent = year;
+
+    const modal = document.getElementById('project-modal');
+    const modalTitle = document.getElementById('project-modal-title');
+    const modalDescription = document.getElementById('project-modal-description');
+    const modalClose = document.getElementById('modal-close');
+
+    const openModal = (title, description) => {
+      modalTitle.textContent = title;
+      modalDescription.textContent = description;
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    };
+
+    const closeModal = () => {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    };
+
+    document.querySelectorAll('.project-detail-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const card = btn.closest('.project-card');
+        const title = card.dataset.title;
+        const description = card.dataset.desc;
+        openModal(title, description);
+      });
+    });
+
+    modalClose.addEventListener('click', closeModal);
+    modal.querySelector('[data-close]').addEventListener('click', closeModal);
+
+    document.addEventListener('keydown', event => {
+      if (event.key === 'Escape' && modal.classList.contains('open')) {
+        closeModal();
+      }
+    });
   </script>
 </body>
 </html>
