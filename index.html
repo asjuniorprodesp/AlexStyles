@@ -11,15 +11,18 @@
 </head>
 <body>
   <header class="hero">
-    <nav class="nav container">
+    <nav class="nav container" id="site-nav">
       <a class="logo" href="#">Alex Styles</a>
-      <ul class="nav-links">
-        <li><a href="#about" title="Learn more about Alex">About</a></li>
-        <li><a href="#portfolio" title="See recent projects">Portfolio</a></li>
-        <li><a href="#contact" title="Reach out to start a project">Contact</a></li>
-      </ul>
+      <div class="nav-actions">
+        <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark mode">🌙</button>
+        <ul class="nav-links">
+          <li><a href="#about" title="Learn more about Alex">About</a></li>
+          <li><a href="#portfolio" title="See recent projects">Portfolio</a></li>
+          <li><a href="#contact" title="Reach out to start a project">Contact</a></li>
+        </ul>
+      </div>
     </nav>
-    <div class="hero-content fade-in">
+    <div class="hero-content reveal">
       <p class="eyebrow">Visual storytelling & brand craftsmanship</p>
       <h1>Hi, I’m Alex<br /><span>Graphic Designer & Creative Partner</span></h1>
       <p>Designing memorable identities, packaging, and digital experiences that connect with audiences.</p>
@@ -28,7 +31,7 @@
   </header>
 
   <main>
-    <section id="about" class="section container fade-in">
+    <section id="about" class="section container reveal">
       <h2>About Me</h2>
       <div class="about-grid">
         <p>I’m Alex Styles, a graphic designer with 8+ years of experience crafting bold, clean visual identities for startups, small businesses, and agencies. I blend strategy, typography, and color to create compelling narratives across print and digital media.</p>
@@ -41,7 +44,7 @@
       </div>
     </section>
 
-    <section id="portfolio" class="section container fade-in">
+    <section id="portfolio" class="section container reveal">
       <h2>Portfolio</h2>
       <p class="subtitle">Selected projects where design met business goals.</p>
       <div class="portfolio-grid">
@@ -89,7 +92,7 @@
       </div>
     </div>
 
-    <section id="contact" class="section container fade-in">
+    <section id="contact" class="section container reveal">
       <h2>Contact</h2>
       <p class="subtitle">Let’s build something beautiful together.</p>
       <form class="contact-form" action="#" method="post">
@@ -124,6 +127,32 @@
     const modalTitle = document.getElementById('project-modal-title');
     const modalDescription = document.getElementById('project-modal-description');
     const modalClose = document.getElementById('modal-close');
+    const nav = document.getElementById('site-nav');
+    const themeToggle = document.getElementById('theme-toggle');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+
+    const setTheme = mode => {
+      if (mode === 'dark') {
+        document.body.classList.add('dark');
+        themeToggle.textContent = '☀';
+        localStorage.setItem('theme', 'dark');
+      } else {
+        document.body.classList.remove('dark');
+        themeToggle.textContent = '🌙';
+        localStorage.setItem('theme', 'light');
+      }
+    };
+
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme);
+    } else {
+      setTheme(prefersDark.matches ? 'dark' : 'light');
+    }
+
+    themeToggle.addEventListener('click', () => {
+      setTheme(document.body.classList.contains('dark') ? 'light' : 'dark');
+    });
 
     const openModal = (title, description) => {
       modalTitle.textContent = title;
@@ -131,6 +160,7 @@
       modal.classList.add('open');
       modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
+      modalClose.focus();
     };
 
     const closeModal = () => {
@@ -156,6 +186,26 @@
         closeModal();
       }
     });
+
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 20) nav.classList.add('scrolled');
+      else nav.classList.remove('scrolled');
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observerOptions = { threshold: 0.1 };
+
+    const revealOnScroll = entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(revealOnScroll, observerOptions);
+    reveals.forEach(section => observer.observe(section));
   </script>
 </body>
 </html>
